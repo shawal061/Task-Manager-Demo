@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { fetchTasks, addTask, completeTask } from "./api/api";
-import TaskForm from "./components/TaskForm";
-import TaskList from "./components/TaskList";
+import "./App.css";
 
 const App = () => {
   const [tasks, setTasks] = useState([]);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
 
   useEffect(() => {
     loadTasks();
@@ -15,8 +16,15 @@ const App = () => {
     setTasks(data);
   };
 
-  const handleAddTask = async (title, description) => {
+  const handleAddTask = async () => {
+    if (!title.trim() || !description.trim()) {
+      alert("Title and description are required!");
+      return;
+    }
+
     await addTask(title, description);
+    setTitle("");
+    setDescription("");
     loadTasks();
   };
 
@@ -26,13 +34,53 @@ const App = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600 p-6">
-      <div className="max-w-md w-full bg-white p-6 rounded-2xl shadow-xl">
-        <h1 className="text-3xl font-bold text-center text-gray-800 mb-4">
-          📝 Task Manager
-        </h1>
-        <TaskForm onAdd={handleAddTask} />
-        <TaskList tasks={tasks} onComplete={handleCompleteTask} />
+    <div className="container">
+      {/* Left Section - Task Form */}
+      <div className="form-container">
+        <h1>Task Manager</h1>
+        <input
+          type="text"
+          placeholder="Task Title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        <textarea
+          placeholder="Task Description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        ></textarea>
+        <button onClick={handleAddTask}>+ Add Task</button>
+      </div>
+
+      {/* Right Section - Task List */}
+      <div className="task-list">
+        {tasks.length === 0 ? (
+          <p style={{ textAlign: "center", color: "#ccc" }}>
+            No tasks yet. Add one above! 🚀
+          </p>
+        ) : (
+          tasks.map((task) => (
+            <div
+              key={task.id}
+              className={`task ${task.completed ? "completed" : ""}`}
+            >
+              <div>
+                <h3>{task.title}</h3>
+                <p>{task.description}</p>
+              </div>
+              {!task.completed ? (
+                <button
+                  className="complete-btn"
+                  onClick={() => handleCompleteTask(task.id)}
+                >
+                  ✅
+                </button>
+              ) : (
+                <span className="check-icon">✔</span>
+              )}
+            </div>
+          ))
+        )}
       </div>
     </div>
   );

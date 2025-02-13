@@ -1,42 +1,155 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Arial", sans-serif;
+}
+
+body {
+  background-color: #1e1e1e; /* Dark background */
+  color: #ffffff; /* White text */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  width: 100%;
+  max-width: 900px;
+  background: #2a2a2a; /* Darker gray box */
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* Layout for Form and Task List */
+.container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  max-width: 900px;
+  margin: 50px auto;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Left Section - Task Form */
+.form-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #2a2a2a;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+h1 {
+  font-size: 24px;
+  color: #ffffff;
 }
 
-.card {
-  padding: 2em;
+/* Task Title Input */
+input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #444;
+  background: #333;
+  color: white;
+  border-radius: 8px;
+  font-size: 16px;
 }
 
-.read-the-docs {
-  color: #888;
+/* Task Description Textarea */
+textarea {
+  width: 100%;
+  height: 80px; /* Proper size */
+  padding: 12px;
+  border: 1px solid #444;
+  background: #333;
+  color: white;
+  border-radius: 8px;
+  font-size: 16px;
+  resize: none;
+  overflow: hidden;
+}
+
+/* Add Task Button */
+button {
+  padding: 12px 20px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.3s;
+  width: 100%;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Right Section - Task List */
+.task-list {
+  flex: 1;
+  background: #2a2a2a;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Task Box */
+.task {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #333;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  min-height: 60px;
+  max-height: 80px;
+  overflow: hidden;
+}
+
+/* Task Text */
+.task div {
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* Completed Task */
+.task.completed {
+  background: #4caf50;
+  text-decoration: line-through;
+}
+
+/* Fix check icon size */
+.check-icon {
+  width: 20px;
+  height: 20px;
+  color: white;
+}
+
+/* Hide "-" from completed tasks */
+.task.completed .remove-btn {
+  display: none;
+}
+
+/* Button Styles */
+button.complete-btn {
+  width: 30px;
+  height: 30px;
+  font-size: 14px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
